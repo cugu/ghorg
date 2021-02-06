@@ -67,14 +67,13 @@ func (c Github) GetUserRepos(config *configs.Config, targetUser string) ([]Repo,
 	}
 
 	opt := &github.RepositoryListOptions{
-		Type:        "all",
+		Affiliation: "owner",
 		ListOptions: github.ListOptions{PerPage: c.perPage},
 	}
 
 	// get all pages of results
 	var allRepos []*github.Repository
 	for {
-
 		repos, resp, err := c.Repositories.List(context.Background(), targetUser, opt)
 
 		if err != nil {
